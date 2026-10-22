@@ -176,6 +176,15 @@ html,body{overflow-x:hidden}
 #view .mapbox #legend{left:0}
 #view .side{min-height:0!important;height:auto!important;padding:0 0 4px!important}#view #cdesc{font-size:13px!important;line-height:1.35!important;margin:0!important;height:calc(2 * 1.35em);-webkit-line-clamp:2}
 }
+/* v17 align header/bar with About + fixed US inset */
+@media(min-width:761px){
+header .in{max-width:1280px!important;margin:0 auto;padding-left:20px!important;padding-right:20px!important;box-sizing:border-box}
+#view{--vp:16px}#view .bar{box-sizing:border-box;width:min(1280px,calc(100% + 2 * var(--vp)));margin-left:max(calc(-1 * var(--vp)),calc((100% - 1280px) / 2))!important;padding-left:20px;padding-right:20px}
+#view .grid{border-top:0!important}
+#view .side{position:relative}
+#view .inset{position:absolute!important;top:108px;left:0;margin:0!important;width:calc(100% - 18px)!important;max-width:220px!important;border:1px solid #d0d0d0!important;padding:4px 6px!important}
+#view .uslab{display:none!important}
+}
 </style></head><body><header><div class="in"><div class="brand"><span data-ro="Standarde de locuire" data-en="Housing Standards">Standarde de locuire</span></div><nav><a href="#despre"><span data-ro="Despre" data-en="About">Despre</span></a><span id="lang"><button data-l="ro">RO</button><button data-l="en">EN</button></span></nav></div></header>
 <section id="view"><a id="harta"></a><div class="bar"><span class="clab cd" data-ro="Criteriu:" data-en="Criterion:">Criteriu:</span><span class="clab cm" data-ro="Alege criteriul" data-en="Choose criterion">Alege criteriul</span><div class="cwrap"><div id="crit" class="btns" role="tablist"></div></div></div>
 <div class="grid"><aside class="side"><p id="cdesc"></p><div class="inset"><div class="uslab"><span data-ro="SUA" data-en="USA">SUA</span></div><svg id="us" viewBox="0 0 360 220"></svg></div></aside>
@@ -192,4 +201,4 @@ html,body{overflow-x:hidden}
 <div><h3>Metodă</h3><p>Fiecare valoare provine din textul legal primar, cu actul și articolul citate în panoul de surse.</p><ul><li><b>explicit</b>: scris în lege;</li><li><b>dedus *</b>: rezultă din alte reguli;</li><li><b>neverificat ?</b>: neconfirmat pe text;</li><li><b>fără regulă –</b>: legea nu cere nimic.</li></ul></div>
 <div><h3>Limite</h3><p>Unele surse sunt copii secundare; unele norme sunt contra cost (de exemplu STN, Slovacia). Regulile locale variază.</p></div></div></div></div></section>
 <footer id="foot"><div class="fi"><p>© 2026 Chindris Razvan · <a href="mailto:razvan_chindris@yahoo.com">razvan_chindris@yahoo.com</a> · <span data-ro="Actualizat la 22.10.2026" data-en="Updated 22.10.2026">Actualizat la 22.10.2026</span></p></div></footer>
-<script src="data.js?v=17"></script><script src="app.js?v=17"></script></body></html>
+<script src="data.js?v=18"></script><script src="app.js?v=18"></script></body></html>
