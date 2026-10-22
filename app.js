@@ -40,24 +40,20 @@ function panel(code){const M=METRICS[mk],P=document.getElementById("pbody");cons
  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
  if(!code||!byCode[code])code="RO";
  const c=byCode[code],l=tagLabel(code),ty=ttype(code);const src=(M.src&&M.src[code])||c.src||[];
- P.innerHTML=`<div class="kick">Țara selectată</div><div class="phead"><div id="pname">${esc(c.name)}</div></div><div class="pcrit">${esc(M.label)}</div>
- <div class="pbig"><em class="tg ${l&&(l.ty==="nv"||l.ty==="none")?"k":"w"}">${l?esc(l.t):"–"}</em><span>${esc(text(code))}</span></div>
- <div class="pst">${ty?TPL[ty]:""}</div><p class="pnt">${M.nt&&M.nt[code]?esc(M.nt[code]):"Fără notă pentru acest criteriu."}</p>
- <div class="psh">Surse</div><ul class="psrc">${src.map(s=>`<li><a href="${s.h}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")||"<li>—</li>"}</ul>${(M.src&&M.src[code])?"":'<div class="pfoot">Surse generale ale țării.</div>'}`;
+ const e=val(code),unit=METRICS[mk].unit==="% din pardoseală"?"%":(METRICS[mk].unit||"");let big;if(!e||e.v===null)big=e&&e.st==="nv"?"?":"–";else if(typeof e.v==="number")big=esc(fmt(e.v))+(ty==="ded"?"*":"")+`<small> ${esc(unit)}</small>`;else big=esc(text(code).replace(/ \((dedus|neverificat)\)$/,""));
+ P.innerHTML=`<div id="pname">${esc(c.name)}</div><div class="pval">${big}</div><div class="pstt">${ty?TPL[ty]:""}</div>${M.nt&&M.nt[code]?`<p class="pnt">${esc(M.nt[code])}</p>`:""}
+ <div class="psh">Surse</div><ul class="psrc">${src.map(s=>`<li><a href="${s.h}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")||"<li>—</li>"}</ul>`;
  }
-function fitView(){const v=document.getElementById("view");if(innerWidth<=700){v.style.height="";return;}v.style.height=(innerHeight-document.querySelector("header").offsetHeight)+"px";}
+function fitView(){const mb=document.querySelector("#view .mapbox"),ar=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ar"))||0.9;if(mb&&innerWidth>760){const h=mb.clientHeight;if(h)document.documentElement.style.setProperty("--mw",Math.round(h*ar)+"px");}const v=document.getElementById("view");if(innerWidth<=700){v.style.height="";return;}v.style.height=(innerHeight-document.querySelector("header").offsetHeight)+"px";}
 function render(){fitView();const m=METRICS[mk];
  document.getElementById("crit").innerHTML=Object.keys(METRICS).map(k=>`<button class="${k===mk?"on":""}" data-k="${k}">${METRICS[k].label}</button>`).join("");
- {const S=document.getElementById("critsel");S.innerHTML=Object.keys(METRICS).map(k=>`<option value="${k}"${k===mk?" selected":""}>${METRICS[k].label}</option>`).join("");S.onchange=()=>{mk=S.value;render();};document.getElementById("ctitle").textContent=m.label;document.getElementById("cdesc").textContent=m.ds||("Minimul cerut de lege. Atinge sau dă click pe o țară pentru notă și surse.");}
+ {const S=document.getElementById("critsel");S.innerHTML=Object.keys(METRICS).map(k=>`<option value="${k}"${k===mk?" selected":""}>${METRICS[k].label}</option>`).join("");S.onchange=()=>{mk=S.value;render();};document.getElementById("cdesc").textContent=m.ds||("Minimul cerut de lege. Atinge sau dă click pe o țară pentru notă și surse.");}
  document.querySelectorAll("#crit button").forEach(b=>b.onclick=()=>{mk=b.dataset.k;render();});
  const nums=Object.values(m.v).map(x=>x[0]).filter(x=>typeof x==="number");
  {const b=BR[mk];let h="";if(m.kind==="bool")h=`<span><i style="background:#FFF100"></i>da</span><span><i style="background:#fff"></i>nu</span>`;else if(m.kind==="cat")h=Object.values(m.cats).map(c=>`<span><i style="background:${c.c}"></i>${c.l}</span>`).join("")+(mk==="ca"?`<span>cifra = prag m²</span>`:"");else{const[lo,hi,st]=dom();const step=st||(hi-lo)/4;let tk=[];for(let x=lo;x<=hi+1e-9;x+=step)tk.push(Math.round(x*100)/100);const g="linear-gradient(90deg,"+STOPS.map(s=>s[1]+" "+s[0]*100+"%").join(",")+")";const u=m.unit==="% din pardoseală"?"%":(m.unit||"");h=`<span class="grad"><span class="bar" style="background:${g}"></span><span class="tk">${tk.map(x=>`<s style="left:${(x-lo)/(hi-lo)*100}%">${fmt(x)}</s>`).join("")}</span></span><span>${u}</span>`;}
  h+=`<span class="sep"></span><span><em class="tg w">16*</em>dedus</span><span><em class="tg k">?</em><i class="h"></i>neverificat</span><span><em class="tg k">–</em><i style="background:${GREY}"></i>fără regulă</span>`;document.getElementById("legend").innerHTML=h;}
  {const eu=document.getElementById("eu");{eu.setAttribute("viewBox","0 0 1000 1006");drawMap(eu,DATA.eu,false);fitEU(eu);}drawMap(eu,DATA.eu,false);}drawMap(document.getElementById("us"),DATA.us,true);
- panel(sel);const c=byCode[sel||"RO"];document.getElementById("nh").textContent="Note și surse: "+c.name;
- document.getElementById("notes").innerHTML=c.notes.map(n=>`<li>${n}</li>`).join("");
- document.getElementById("links").innerHTML=c.src.map(s=>`<a href="${s.h}" target="_blank" rel="noopener">${s.t} ↗</a>`).join("");
- document.getElementById("rank").innerHTML=`<tr><th>Țară</th><th>${m.label}</th></tr>`+DATA.countries.map(c=>`<tr><td>${c.name}</td><td>${text(c.code)}</td></tr>`).join("");
+ panel(sel);
  document.getElementById("grp").innerHTML=Object.keys(GROUPS).map(g=>`<button class="${g===grp?"on":""}" data-g="${g}">${GROUPS[g].map(x=>x==="US"?"SUA":x).join(", ")}</button>`).join("");
  document.querySelectorAll("#grp button").forEach(b=>b.onclick=()=>{grp=b.dataset.g;render();});
  const cs=GROUPS[grp];document.getElementById("full").innerHTML=`<tr><th>Criteriu</th>${cs.map(x=>`<th>${x==="US"?"SUA":x}</th>`).join("")}</tr>`+DATA.crit.map((k,i)=>`<tr><td class="k">${i+1}. ${k}</td>${cs.map(x=>`<td>${byCode[x].cells[i]}</td>`).join("")}</tr>`).join("");}
