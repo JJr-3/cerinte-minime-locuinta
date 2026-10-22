@@ -5,7 +5,7 @@ const byA3={},byCode={};DATA.countries.forEach(c=>{byA3[c.a3]=c;byCode[c.code]=c
 let mk="c1e",sel="RO",grp="g1";{const h=location.hash.match(/k=(\w+)/);if(h&&METRICS[h[1]])mk=h[1];const q=location.hash.match(/c=(\w+)/);if(q&&byCode[q[1]])sel=q[1];}
 function val(code){const e=METRICS[mk].v[code];if(!e)return null;return {v:e[0],st:e[1]||""};}
 function text(code){const e=val(code),m=METRICS[mk];if(!e)return"";if(m.kind==="cat"&&e.v!==null){const tx=m.tx&&m.tx[code];return m.cats[e.v].l+(tx&&/\d/.test(tx)?" ≤ "+tx+" m²":"")+(e.st==="dedus"?" (dedus)":e.st==="nv"?" (neverificat)":"");}if(e.v===null)return e.st==="nv"?"neverificat":e.st==="dedus"?"dedus, fără valoare":"– (fără regulă)";const s=typeof e.v==="number"?fmt(e.v)+" "+(m.unit||""):e.v;return s+(e.st==="dedus"?" (dedus)":e.st==="nv"?" (neverificat)":"");}
-const STOPS=[[0,"#FFF8C4"],[0.35,"#FFF100"],[0.7,"#FFA200"],[1,"#8A4B00"]];const DOM={c1e:[0,50,10],c2:[0,50,10],cr:[0,15,5],cw:[1.5,2.5,0.5],cm:[1,2,0.5],c8:[0,5,1],c12:[0,25,5]};
+const STOPS=[[0,"#FFF8C4"],[0.35,"#FFF100"],[0.7,"#FFA200"],[1,"#8A4B00"]];const DOM={c1e:[0,50,10],c2:[0,50,10],cr:[0,15,5],cw:[1.5,2.5,0.5],cc:[0.8,1.3,0.1],cm:[1,2,0.5],c8:[0,5,1],c12:[0,25,5]};
 function dom(){const m=METRICS[mk];if(DOM[mk])return DOM[mk];const n=Object.values(m.v).map(x=>x[0]).filter(x=>typeof x==="number");const lo=Math.min(...n),hi=Math.max(...n);return[lo,hi===lo?lo+1:hi,null];}
 const hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
 function ramp(t){t=Math.max(0,Math.min(1,t));let i=0;while(i<STOPS.length-2&&t>STOPS[i+1][0])i++;const[a0,c0]=STOPS[i],[a1,c1]=STOPS[i+1];const f=(t-a0)/(a1-a0),A=hx(c0),B=hx(c1);return"rgb("+A.map((x,k)=>Math.round(x+(B[k]-x)*f)).join(",")+")";}
