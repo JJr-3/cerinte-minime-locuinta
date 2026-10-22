@@ -70,8 +70,46 @@ em.tg{font-style:normal;font-weight:600;font-size:11px;padding:0 4px;border:1px 
 #view .pst{display:inline-block;background:#FFF100;font-size:11.5px;font-weight:500;padding:1px 6px;margin:0 0 8px}#view .pnt{font-size:12.5px;line-height:1.4;margin:0 0 10px}
 #view .psh{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid #000;padding-top:6px;margin-bottom:4px}#view .psrc{list-style:none;padding:0;margin:0;font-size:12.5px}#view .psrc li{margin:0 0 4px}#view .psrc a{color:#000;text-decoration:underline}#view .pfoot{font-size:11px;color:#6b7280;margin-top:4px}
 #view .grid{grid-template-rows:minmax(0,1fr)}#view .panel{height:100%;box-sizing:border-box}#view .pds{font-size:12.5px;line-height:1.4;margin:0 0 8px}#view .prank{width:100%;font-size:12px;border-collapse:collapse}#view .prank td{padding:2px 0;border-bottom:1px solid #e5e5e5;cursor:pointer}#view .prank td:last-child{text-align:right}#view .prank tr:hover td{background:#FFF100}#view .prank .tg{font-size:11px;padding:0 5px}
-</style></head><body><header><div class="in"><div class="brand">Cerințe minime locuință</div><nav><a href="#harta">Hartă</a><a href="#note">Note</a><a href="#clasament">Clasament</a><a href="#tabel">Tabel</a></nav></div></header><section id="view"><a id="harta"></a><div class="bar"><div id="crit" class="btns"></div></div><div id="legend"></div>
-<div class="grid"><div class="mapbox"><svg id="eu" viewBox="0 0 1000 1006" preserveAspectRatio="xMidYMid meet"></svg><div id="tip"></div><div class="inset"><div class="uslab">SUA</div><svg id="us" viewBox="0 0 360 220"></svg></div></div>
+
+/* layout v3 */
+header .in{padding:6px 16px}#view{padding:6px 16px 10px}
+#view .bar{margin-bottom:8px}#critsel{display:none}
+#view .grid{grid-template-columns:clamp(190px,17vw,280px) minmax(0,1fr) clamp(270px,24vw,380px);gap:0;border-top:1px solid #000}
+#view .side{padding:14px 18px 10px 0;display:flex;flex-direction:column;gap:14px;min-height:0;overflow:hidden;border-right:1px solid #e5e5e5}
+.side .kick,.panel .kick{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6b7280}
+#ctitle{font-size:clamp(26px,2.6vw,46px);font-weight:500;letter-spacing:-.03em;line-height:1;margin-top:-8px}
+#cdesc{font-size:13px;line-height:1.4;color:#374151;margin:0}
+#view #legend{flex-direction:column;align-items:flex-start;gap:7px;margin:0;font-size:12px}
+#view #legend .sep{display:none}#legend .grad{width:100%;max-width:220px}
+#view .inset{position:static;width:100%;max-width:220px;min-width:0;margin-top:auto;border:1px solid #000;padding:4px 6px;background:#fff}
+#view .mapbox{height:100%;width:100%}
+#view .panel{border-left:1px solid #000;padding:14px 0 10px 20px;overflow-y:auto}
+#view .phead{display:block}#view #pname{font-size:clamp(30px,3vw,52px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:2px 0 14px}
+#view .pcrit{display:none}
+#view .pbig{flex-direction:column;align-items:flex-start;gap:6px;margin:0 0 10px}#view .pbig .tg{font-size:clamp(40px,4.4vw,72px);line-height:1.1;padding:0 14px;border-width:2px}#view .pbig span{font-size:14px;font-weight:500}
+#view .pst{font-size:12px;margin:0 0 12px}#view .pnt{font-size:13.5px;line-height:1.45;margin:0 0 14px}
+#view .psrc{font-size:13.5px}#view .psrc li{margin:0 0 6px}
+@media(max-width:1200px){#view .grid{grid-template-columns:180px minmax(0,1fr) 270px}}
+#view .side{padding-right:16px}#legend .grad{max-width:none}#view .inset{max-width:none}
+@media(max-height:560px){#view .inset{display:none}#view #legend{gap:4px}#ctitle{font-size:26px}#view .side{gap:8px;padding-top:8px}#view .panel{padding-top:8px}#cdesc{display:none}#view #pname{margin-bottom:8px}#view .pbig .tg{font-size:40px}}
+@media(max-width:760px){
+ html,body{overflow-x:hidden}header .in{padding:8px 12px}header nav{gap:12px}
+ #view{height:auto!important;padding:8px 12px}
+ #view .bar{margin-bottom:8px}#view #crit{display:none}#critsel{display:block;width:100%;font:500 16px "Inter Tight",Helvetica,Arial,sans-serif;padding:10px 12px;border:1px solid #000;border-radius:0;background:#fff;color:#000;min-height:44px}
+ #view .grid{display:flex;flex-direction:column;border-top:0;flex:none!important;overflow:visible!important}
+ #view .side{order:1;border:0;padding:0 0 8px;gap:8px;overflow:visible}#ctitle{font-size:32px;margin:0}#cdesc{display:block;font-size:14px}
+ #view #legend{flex-direction:row;flex-wrap:wrap;gap:8px 14px;font-size:12px}#legend .grad{max-width:none;width:100%}
+ #view .side .kick,#view .inset{display:none}
+ #view .mapbox{order:2;width:100%;height:auto!important;aspect-ratio:.85}
+ #view .panel{order:3;border-left:0;border-top:1px solid #000;padding:14px 0 8px;overflow:visible;height:auto}
+ #view .pbig .tg{font-size:48px}#view .pnt,#view .psrc{font-size:15px}#view .psrc li{margin-bottom:10px}#view .psrc a{display:inline-block;padding:4px 0}
+ .intro h1{font-size:36px}.wrap{padding:32px 12px 60px}.scroll{max-width:100%}
+}
+#view .pnt{overflow-wrap:anywhere}#legend .grad{margin-left:4px;width:calc(100% - 10px)!important}#view .mapbox svg#eu{display:block}
+@media(max-width:760px){header .in{flex-wrap:nowrap}header .brand{font-size:15px}header nav a{font-size:13px}}
+</style></head><body><header><div class="in"><div class="brand">Cerințe minime locuință</div><nav><a href="#harta">Hartă</a><a href="#note">Note</a><a href="#clasament">Clasament</a><a href="#tabel">Tabel</a></nav></div></header><section id="view"><a id="harta"></a><div class="bar"><div id="crit" class="btns"></div><select id="critsel" aria-label="Criteriu"></select></div>
+<div class="grid"><aside class="side"><div class="kick">Criteriu</div><div id="ctitle"></div><p id="cdesc"></p><div id="legend"></div><div class="inset"><div class="uslab">SUA</div><svg id="us" viewBox="0 0 360 220"></svg></div></aside>
+<div class="mapbox"><svg id="eu" viewBox="0 0 1000 1006" preserveAspectRatio="xMidYMid meet"></svg><div id="tip"></div></div>
 <div class="panel" id="pbody"></div></div></section>
 <div class="wrap intro"><h1>Cerințe minime pentru locuință. Europa + SUA</h1>
 <p class="sub">Minimele legale pentru o locuință nouă în 25 de țări europene și SUA. Alege criteriul, apoi click pe o țară pentru toate cele 17 criterii, note și surse.</p><p class="meta">Verificat la 22.10.2026 · 26 de țări · 17 criterii</p>
