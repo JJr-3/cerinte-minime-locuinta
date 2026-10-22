@@ -160,10 +160,17 @@ a[x-apple-data-detectors],a[href^="mailto:"],a[href^="tel:"]{color:inherit!impor
 @media(max-width:760px){#view .side{min-height:128px;box-sizing:border-box;justify-content:flex-start}#view #cdesc{display:-webkit-box!important;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
 ::selection{background:#FFF100;color:#000}
 :focus-visible{outline:2px solid #000;outline-offset:2px}
+/* v13 legend on map, peek below */
+#view .mapbox{position:relative}
+#view .mapbox #legend{position:absolute!important;left:6px;top:6px;z-index:3;display:flex!important;flex-direction:column!important;align-items:flex-start!important;flex-wrap:nowrap!important;gap:5px!important;margin:0!important;padding:6px 8px;background:rgba(255,255,255,.88);font-size:11px!important;width:auto;max-width:170px}
+#view .mapbox #legend .sep{display:none}#view .mapbox #legend .gr{width:150px}#view .mapbox #legend .grad{width:auto!important;max-width:none}
+#view .mapbox #legend .tg{transform:scale(.9);transform-origin:left center}
+@media(min-width:761px){#view{height:calc(100vh - 112px)!important;height:calc(100dvh - 112px)!important}}
+@media(max-width:760px){#view .side{min-height:68px!important}#view .mapbox #legend{max-width:132px;padding:4px 6px;left:0;top:0}#view .mapbox #legend .gr{width:118px}}
 </style></head><body><header><div class="in"><div class="brand"><span data-ro="Standarde de locuire" data-en="Housing Standards">Standarde de locuire</span></div><nav><a href="#despre"><span data-ro="Despre" data-en="About">Despre</span></a><span id="lang"><button data-l="ro">RO</button><button data-l="en">EN</button></span></nav></div></header>
 <section id="view"><a id="harta"></a><div class="bar"><span class="clab cd" data-ro="Criteriu:" data-en="Criterion:">Criteriu:</span><span class="clab cm" data-ro="Alege criteriul" data-en="Choose criterion">Alege criteriul</span><div class="cwrap"><div id="crit" class="btns" role="tablist"></div></div></div>
-<div class="grid"><aside class="side"><p id="cdesc"></p><div id="legend"></div><div class="inset"><div class="uslab"><span data-ro="SUA" data-en="USA">SUA</span></div><svg id="us" viewBox="0 0 360 220"></svg></div></aside>
-<div class="mapbox"><svg id="eu" viewBox="0 0 1000 1006" preserveAspectRatio="xMidYMid meet"></svg><div id="tip"></div></div>
+<div class="grid"><aside class="side"><p id="cdesc"></p><div class="inset"><div class="uslab"><span data-ro="SUA" data-en="USA">SUA</span></div><svg id="us" viewBox="0 0 360 220"></svg></div></aside>
+<div class="mapbox"><svg id="eu" viewBox="0 0 1000 1006" preserveAspectRatio="xMidYMid meet"></svg><div id="tip"></div><div id="legend"></div></div>
 <div class="panel" id="pbody"></div></div></section>
 <section id="despre"><div class="ab"><h2 data-ro="Despre" data-en="About">Despre</h2><div class="abt" data-ro="&lt;p class=&quot;lead&quot;&gt;Un studiu comparativ al standardelor de locuire din țările europene: ce cer actele normative pentru o locuință nouă.&lt;/p&gt;
 &lt;div class=&quot;cols&quot;&gt;&lt;div&gt;&lt;h3&gt;Conținut&lt;/h3&gt;&lt;p&gt;Pentru fiecare țară: suprafața locuinței, camere, înălțime liberă, baie, lățimea coridorului, autorizare și prefabricate. Valorile sunt cele aplicabile casei individuale, separat de regulile pentru blocuri, locuințe sociale sau închiriere.&lt;/p&gt;&lt;/div&gt;
